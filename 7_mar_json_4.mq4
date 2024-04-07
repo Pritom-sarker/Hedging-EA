@@ -55,6 +55,7 @@ input             string  StartTime="00:00"; //Start Time
 input             string  StopTime="23:59"; //End Time
 input             double TpReduce=20; // TpReduce %
 input             double MaxGap=200;//Max Gap in Pips
+input             string JsonValue = "3";
 
 
 bool Buy=false;
@@ -206,7 +207,7 @@ void RiskManager()
    string RiskedUrl="";
 
 
-   string url3 = "http://149.28.238.50:8080/view-json-4";
+   string url3 = "http://149.28.238.50:8080/view-json-"+JsonValue;
 
    RiskedUrl=url3;
 
@@ -356,6 +357,7 @@ void Operation()
                double TPDist=NormalizeDouble(TakeProfit-ask,digit);
                double SLDist=NormalizeDouble(ask-StopLoss,digit);
                if(MathAbs(ask-iClose(Pairs[i],TimeFrame[i],1))>MaxGap*point) return;
+               value2=NormalizeDouble(value,Digits);
                int t=OrderSend(Pairs[i],OP_BUY,lot,ask,100,StopLoss,TakeProfit,NULL,MagicNo,0,clrGreen);
                
                if(t>=0)
